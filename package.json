@@ -8,7 +8,8 @@
   "jsnext:main": "build/es.js",
   "license": "MIT",
   "scripts": {
-    "prepublish": "make build"
+    "test": "NODE_ENV=server babel-node test/index.js",
+    "prepublish": "rollup -c"
   },
   "keywords": [
     "react",
@@ -25,6 +26,7 @@
     ]
   },
   "devDependencies": {
+    "babel-cli": "^6.14.0",
     "babel-plugin-transform-react-jsx": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
