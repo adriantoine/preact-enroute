@@ -5,6 +5,7 @@
   "description": "Small preact router (preact port of tj/react-enroute)",
   "author": "Adrien Antoine <adriantoine@gmail.com>",
   "main": "build/index.js",
+  "jsnext:main": "build/es.js",
   "license": "MIT",
   "scripts": {
     "prepublish": "make build"
@@ -24,9 +25,15 @@
     ]
   },
   "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
     "preact": "^6.0.1",
     "preact-assert-equal-jsx": "^1.0.0",
-    "react-fatigue-dev": "github:tj/react-fatigue-dev"
+    "rollup": "^0.34.13",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-node-resolve": "^2.0.0"
   },
   "files": [
     "build"
