@@ -6,6 +6,7 @@
   "author": "Adrien Antoine <adriantoine@gmail.com>",
   "main": "build/index.js",
   "jsnext:main": "build/es.js",
+  "browser:main": "build/browser.js",
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=server babel-node test/index.js",
@@ -35,14 +36,13 @@
     "preact-assert-equal-jsx": "^1.0.0",
     "rollup": "^0.34.13",
     "rollup-plugin-babel": "^2.6.1",
-    "rollup-plugin-node-resolve": "^2.0.0"
+    "rollup-plugin-commonjs": "^4.1.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "enroute": "^1.0.1"
   },
   "files": [
     "build"
   ],
-  "dependencies": {
-    "enroute": "^1.0.1"
-  },
   "peerDependencies": {
     "preact": "^6.0.0"
   }
