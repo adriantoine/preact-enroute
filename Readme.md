@@ -17,50 +17,59 @@ This is a port of [react-enroute](https://github.com/tj/react-enroute) for [Prea
 No nesting:
 
 ```js
-render(<Router {...state}>
-  <Route path="/" component={Index} />
-  <Route path="/users" component={Users} />
-  <Route path="/users/:id" component={User} />
-  <Route path="/pets" component={Pets} />
-  <Route path="/pets/:id" component={Pet} />
-  <Route path="*" component={NotFound} />
-</Router>, document.querySelector('#app'))
+render(
+	<Router {...state}>
+	  <Route path="/" component={Index} />
+	  <Route path="/users" component={Users} />
+	  <Route path="/users/:id" component={User} />
+	  <Route path="/pets" component={Pets} />
+	  <Route path="/pets/:id" component={Pet} />
+	  <Route path="*" component={NotFound} />
+	</Router>,
+	document.querySelector('#app')
+	);
 ```
 
 Some nesting:
 
 ```js
-render(<Router {...state}>
-  <Route path="/" component={Index} />
+render(
+	<Router {...state}>
+	  <Route path="/" component={Index} />
 
-  <Route path="/users" component={Users}>
-    <Route path=":id" component={User} />
-  </Route>
+	  <Route path="/users" component={Users}>
+	    <Route path=":id" component={User} />
+	  </Route>
 
-  <Route path="/pets" component={Pets}>
-    <Route path=":id" component={Pet} />
-  </Route>
+	  <Route path="/pets" component={Pets}>
+	    <Route path=":id" component={Pet} />
+	  </Route>
 
-  <Route path="*" component={NotFound} />
-</Router>, document.querySelector('#app'))
+	  <Route path="*" component={NotFound} />
+	</Router>,
+	document.querySelector('#app')
+)
 ```
 
 Moar nesting:
 
 ```js
-render(<Router {...state}>
-  <Route path="/" component={Index}>
-    <Route path="users" component={Users}>
-      <Route path=":id" component={User} />
-    </Route>
+render(
+	<Router {...state}>
+	  <Route path="/" component={Index}>
+	    <Route path="users" component={Users}>
+	      <Route path=":id" component={User} />
+	    </Route>
 
-    <Route path="pets" component={Pets}>
-      <Route path=":id" component={Pet} />
-    </Route>
-  </Route>
+	    <Route path="pets" component={Pets}>
+	      <Route path=":id" component={Pet} />
+	    </Route>
+	  </Route>
 
-  <Route path="*" component={NotFound} />
-</Router>, document.querySelector('#app'))
+	  <Route path="*" component={NotFound} />
+	</Router>,
+	document.querySelector('#app')
+)
 ```
 
 ## Developing
@@ -68,17 +77,23 @@ render(<Router {...state}>
 Build:
 
 ```
-$ make build
+$ npm run build
 ```
 
-Start dev server:
+Start pushState example:
 
 ```
-$ make start
+$ npm run example-pushstate
+```
+
+Start hash example:
+
+```
+$ npm run example-hash
 ```
 
 Running tests:
 
 ```
-$ make test
+$ npm test
 ```
