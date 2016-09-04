@@ -1,14 +1,30 @@
 
-import { h, Component, render as preactRender } from 'preact'
+import { h, Component, render } from 'preact'
 import { Router, Route } from '..'
+
+const state = {
+  location: window.location.pathname,
+  users: [
+    { id: 1, name: 'Bob' },
+    { id: 2, name: 'Joe' },
+  ],
+  pets: [
+    { id: 1, user_id: 1, name: 'Tobi', species: 'Ferret' },
+    { id: 2, user_id: 1, name: 'Loki', species: 'Ferret' },
+    { id: 3, user_id: 1, name: 'Jane', species: 'Ferret' },
+    { id: 4, user_id: 2, name: 'Manny', species: 'Cat' },
+    { id: 5, user_id: 2, name: 'Luna', species: 'Cat' }
+  ]
+}
 
 // note this is just an example, this package does not provide
 // a Link equivalent found in react-router, nor does it provide
 // bindings for tools like Redux. You'll need to wire these up
 // as desired.
-function Link({ to, children }) {
+function Link({ to, children }, { navigate }) {
   function click(e) {
     e.preventDefault()
+    history.pushState(null, "", to)
     navigate(to)
   }
 
@@ -18,8 +34,7 @@ function Link({ to, children }) {
 }
 
 class Index extends Component {
-  render() {
-    const { children } = this.props
+  render({ children }) {
     return <div>
       <h1>Pet List</h1>
       <p>At least it is not a to-do list. Check out <Link to="/users">users</Link> or <Link to="/pets">pets</Link>.</p>
@@ -28,17 +43,8 @@ class Index extends Component {
   }
 }
 
-// function Index({ children }) {
-//   return <div>
-//     <h1>Pet List</h1>
-//     <p>At least it is not a to-do list. Check out <Link to="/users">users</Link> or <Link to="/pets">pets</Link>.</p>
-//     {children}
-//   </div>
-// }
-
 class Users extends Component {
-  render() {
-    const { users, children } = this.props
+  render({ users, children }) {
     return <div>
       <h2>Users</h2>
       <ul>
@@ -53,19 +59,37 @@ class Users extends Component {
   }
 }
 
-// function Users({ users, children }) {
-//   return <div>
-//     <h2>Users</h2>
-//     <ul>
-//       {users.map(user => {
-//         return <li key={user.id}>
-//           <Link to={`/users/${user.id}`}>{user.name}</Link>
-//         </li>
-//       })}
-//     </ul>
-//     {children}
-//   </div>
-// }
+class App extends Component {
+  constructor() {
+    super()
+    this.state = state
+  }
+
+  componentDidMount() {
+    window.addEventListener('popstate', () => {
+      this.setState({location: window.location.pathname})
+    })
+  }
+
+  getChildContext() {
+    return {
+      navigate: path => this.setState({location: path})
+    }
+  }
+
+  render() {
+    return (
+      <Router {...this.state}>
+        <Route path="/" component={Index} />
+        <Route path="/users" component={Users} />
+        <Route path="/users/:id" component={User} />
+        <Route path="/pets" component={Pets} />
+        <Route path="/pets/:id" component={Pet} />
+        <Route path="*" component={NotFound} />
+      </Router>
+    )
+  }
+}
 
 function User({ user, pets }) {
   return <div>
@@ -119,83 +143,4 @@ function NotFound() {
   return <p>404 Not Found</p>
 }
 
-function navigate(path) {
-  history.pushState(null, "", path)
-  render({
-    ...state,
-    location: path
-  })
-}
-
-window.addEventListener('popstate', e => {
-  render({
-    ...state,
-    location: window.location.pathname
-  })
-})
-
-// function render(state) {
-  // ReactDOM.render(<Router {...state}>
-  //   <Route path="/" component={Index} />
-  //
-  //   <Route path="/users" component={Users}>
-  //     <Route path=":id" component={User} />
-  //   </Route>
-  //
-  //   <Route path="/pets" component={Pets}>
-  //     <Route path=":id" component={Pet} />
-  //   </Route>
-  //
-  //   <Route path="*" component={NotFound} />
-  // </Router>, document.querySelector('#app'))
-// }
-
-// function render(state) {
-//   ReactDOM.render(<Router {...state}>
-//     <Route path="/" component={Index}>
-//       <Route path="users" component={Users}>
-//         <Route path=":id" component={User} />
-//       </Route>
-//
-//       <Route path="pets" component={Pets}>
-//         <Route path=":id" component={Pet} />
-//       </Route>
-//     </Route>
-//
-//     <Route path="*" component={NotFound} />
-//   </Router>, document.querySelector('#app'))
-// }
-
-function render(state) {
-  preactRender(<Router {...state}>
-    <Route path="/" component={Index} />
-    <Route path="/users" component={Users} />
-    <Route path="/users/:id" component={User} />
-    <Route path="/pets" component={Pets} />
-    <Route path="/pets/:id" component={Pet} />
-    <Route path="*" component={NotFound} />
-  </Router>, document.querySelector('#app'))
-}
-
-
-// TODO: update readme examples
-// TODO: index / redirect
-// TODO: tests
-// TODO: server example
-
-const state = {
-  location: window.location.pathname,
-  users: [
-    { id: 1, name: 'Bob' },
-    { id: 2, name: 'Joe' },
-  ],
-  pets: [
-    { id: 1, user_id: 1, name: 'Tobi', species: 'Ferret' },
-    { id: 2, user_id: 1, name: 'Loki', species: 'Ferret' },
-    { id: 3, user_id: 1, name: 'Jane', species: 'Ferret' },
-    { id: 4, user_id: 2, name: 'Manny', species: 'Cat' },
-    { id: 5, user_id: 2, name: 'Luna', species: 'Cat' }
-  ]
-}
-
-render(state)
+render(<App/>, document.body)
