@@ -96,10 +96,10 @@ function context({path, component}) {
  */
 
 function normalizeRoute(path, parent) {
-	if (path[0] === '/') {
-		return path;  // "/" signifies an absolute route
+	if (path[0] === '/' || path[0] === '') {
+		return path;  // absolute route
 	}
-	if (parent === null) {
+	if (!parent) {
 		return path;  // no need for a join
 	}
 	return `${parent.route}/${path}`; // join
