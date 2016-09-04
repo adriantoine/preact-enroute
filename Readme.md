@@ -1,5 +1,10 @@
 This is a port of [react-enroute](https://github.com/tj/react-enroute) for [Preact](https://preactjs.com). It works exactly the same way, I only adapted the code style to mine as I am going to maintain this one. I have also reorganised the examples and added an example using hash history.
 
+[![Build Status](https://travis-ci.org/adriantoine/preact-enroute.svg?branch=master)](https://travis-ci.org/adriantoine/preact-enroute)
+[![codecov](https://codecov.io/gh/adriantoine/preact-enroute/branch/master/graph/badge.svg)](https://codecov.io/gh/adriantoine/preact-enroute)
+[![Stable version](https://img.shields.io/npm/v/preact-enroute.svg?style=flat)](https://www.npmjs.com/package/preact-enroute)
+[![Gemnasium](https://img.shields.io/gemnasium/adriantoine/preact-enroute.svg)](https://gemnasium.com/github.com/adriantoine/preact-enroute)
+
 # preact-enroute
 
  Simple Preact router with a small footprint for modern browsers. This package is not meant to be a drop-in replacement for any router, just a smaller simpler alternative.
