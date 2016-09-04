@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import enroute from 'enroute';
 
 function assert(e, msg) {
-	if (e === null || e === undefined) {
+	if (!e) {
 		throw new Error(`preact-enroute: ${msg}`);
 	}
 }

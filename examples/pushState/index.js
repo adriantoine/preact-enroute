@@ -1,6 +1,6 @@
 
 import {h, Component, render} from 'preact';
-import {Router, Route} from '..';
+import {Router, Route} from '../../index';
 
 const state = {
 	location: window.location.pathname,
@@ -51,8 +51,8 @@ let User = ({user, pets}) => {
 User = (fn => {
 	return ({users, pets, params: {id}}) => {
 		return fn({
-			user: users.filter(u => u.id === id)[0],
-			pets: pets.filter(p => p.userId === id),
+			user: users.filter(u => u.id === parseInt(id, 10))[0],
+			pets: pets.filter(p => p.userId === parseInt(id, 10)),
 		});
 	};
 })(User);
@@ -79,7 +79,7 @@ let Pet = ({user, pet}) => {
 
 Pet = (fn => {
 	return ({users, pets, params: {id}}) => {
-		const pet = pets.filter(p => p.id === id)[0];
+		const pet = pets.filter(p => p.id === parseInt(id, 10))[0];
 		const user = users.filter(u => u.id === pet.userId)[0];
 		return fn({user, pet});
 	};
