@@ -20,7 +20,7 @@ export default {
     {
       dest: path.resolve(__dirname, pkg.main),
       format: 'umd',
-      moduleName: 'depensitor',
+      moduleName: 'preactEnroute',
       sourceMap: true,
     },
     {
