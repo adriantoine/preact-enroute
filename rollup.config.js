@@ -1,5 +1,4 @@
 import path from 'path'
-import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
 import nodeResolve from 'rollup-plugin-node-resolve'
 
@@ -14,22 +13,13 @@ export default {
     nodeResolve({
       jsnext: true,
       main: true,
-    }),
-    commonjs({
-      include: 'node_modules/**'
     })
   ],
-  external: ['preact'],
+  external,
   targets: [
     {
       dest: path.resolve(__dirname, pkg.main),
       format: 'cjs',
-      sourceMap: true,
-    },
-    {
-      dest: path.resolve(__dirname, pkg['browser:main']),
-      format: 'iife',
-      moduleName: 'PreactEnroute',
       sourceMap: true,
     },
     {
