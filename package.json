@@ -1,6 +1,6 @@
 {
   "name": "preact-enroute",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": "adriantoine/preact-enroute",
   "description": "Small preact router (preact port of tj/react-enroute)",
   "author": "Adrien Antoine <adriantoine@gmail.com>",
