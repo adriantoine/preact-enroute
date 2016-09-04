@@ -607,7 +607,7 @@ function _possibleConstructorReturn$1(self, call) { if (!self) { throw new Refer
 function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function assert(e, msg) {
-	if (e === null || e === undefined || e === false) {
+	if (!e) {
 		throw new Error('preact-enroute: ' + msg);
 	}
 }
@@ -775,7 +775,6 @@ function Link(_ref, _ref2) {
 
 	function click(e) {
 		e.preventDefault();
-		history.pushState(null, '', to);
 		navigate(to);
 	}
 
@@ -1002,7 +1001,8 @@ var App = function (_Component) {
 
 			return {
 				navigate: function navigate(path) {
-					return _this3.setState({ location: path });
+					history.pushState(null, '', path);
+					_this3.setState({ location: path });
 				}
 			};
 		}

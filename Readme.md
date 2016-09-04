@@ -1,10 +1,12 @@
-This is a port of [react-enroute](https://github.com/tj/react-enroute) for [Preact](https://preactjs.com).
+This is a port of [react-enroute](https://github.com/tj/react-enroute) for [Preact](https://preactjs.com). It works exactly the same way, I only adapted the code style to mine as I am going to maintain this one. I have also reorganised the examples and added an example using hash history.
 
 # preact-enroute
 
- Simple Preact router with a small footprint for modern browsers. This package is not meant to be a drop-in replacement for preact-router, just a smaller simpler alternative.
+ Simple Preact router with a small footprint for modern browsers. This package is not meant to be a drop-in replacement for any router, just a smaller simpler alternative.
 
  See [path-to-regexp](https://github.com/pillarjs/path-to-regexp) for path matching, this is the same library used by Express.
+
+ If you want to try it, play with it on [this CodePen (using hash history)](http://codepen.io/Alshten/pen/qaENkj) or run the examples (see below).
 
 ## Installation
 

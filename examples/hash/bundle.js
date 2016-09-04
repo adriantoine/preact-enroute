@@ -750,6 +750,198 @@ function cleanPath(path) {
 	return path.replace(/\/\//g, '/');
 }
 
+// note this is just an example, this package does not provide
+// a Link equivalent found in react-router, nor does it provide
+// bindings for tools like Redux. You'll need to wire these up
+// as desired.
+function Link(_ref, _ref2) {
+	var to = _ref.to;
+	var children = _ref.children;
+	var navigate = _ref2.navigate;
+
+	function click(e) {
+		e.preventDefault();
+		navigate(to);
+	}
+
+	return preact.h(
+		"a",
+		{ href: to, onClick: click },
+		children
+	);
+}
+
+var User = function User(_ref3) {
+	var users = _ref3.users;
+	var pets = _ref3.pets;
+	var id = _ref3.params.id;
+
+	var user = users.filter(function (u) {
+		return u.id === parseInt(id, 10);
+	})[0];
+	var userPets = pets.filter(function (p) {
+		return p.userId === parseInt(id, 10);
+	});
+	console.log(user, userPets);
+
+	return preact.h(
+		"div",
+		null,
+		preact.h(
+			"p",
+			null,
+			user.name,
+			" has ",
+			userPets.length,
+			" pets:"
+		),
+		preact.h(
+			"ul",
+			null,
+			userPets.map(function (pet) {
+				return preact.h(
+					"li",
+					{ key: pet.id },
+					preact.h(
+						Link,
+						{ to: "/pets/" + pet.id },
+						pet.name
+					)
+				);
+			})
+		)
+	);
+};
+
+function Pets(_ref4) {
+	var pets = _ref4.pets;
+	var children = _ref4.children;
+
+	return preact.h(
+		"div",
+		null,
+		preact.h(
+			"h2",
+			null,
+			"Pets"
+		),
+		preact.h(
+			"ul",
+			null,
+			pets.map(function (pet) {
+				return preact.h(
+					"li",
+					{ key: pet.id },
+					preact.h(
+						Link,
+						{ to: "/pets/" + pet.id },
+						pet.name
+					)
+				);
+			})
+		),
+		children
+	);
+}
+
+var Pet = function Pet(_ref5) {
+	var users = _ref5.users;
+	var pets = _ref5.pets;
+	var id = _ref5.params.id;
+
+	var pet = pets.filter(function (p) {
+		return p.id === parseInt(id, 10);
+	})[0];
+	var user = users.filter(function (u) {
+		return u.id === pet.userId;
+	})[0];
+	return preact.h(
+		"p",
+		null,
+		pet.name,
+		" is a ",
+		pet.species,
+		" and is owned by ",
+		preact.h(
+			Link,
+			{ to: "/users/" + user.id },
+			user.name
+		),
+		"."
+	);
+};
+
+function NotFound() {
+	return preact.h(
+		"p",
+		null,
+		"404 Not Found"
+	);
+}
+
+var Index = function Index(_ref6) {
+	var children = _ref6.children;
+
+	return preact.h(
+		"div",
+		null,
+		preact.h(
+			"h1",
+			null,
+			"Pet List"
+		),
+		preact.h(
+			"p",
+			null,
+			"At least it is not a to-do list. Check out ",
+			preact.h(
+				Link,
+				{ to: "/users" },
+				"users"
+			),
+			" or ",
+			preact.h(
+				Link,
+				{ to: "/pets" },
+				"pets"
+			),
+			"."
+		),
+		children
+	);
+};
+
+var Users = function Users(_ref7) {
+	var users = _ref7.users;
+	var children = _ref7.children;
+
+	return preact.h(
+		"div",
+		null,
+		preact.h(
+			"h2",
+			null,
+			"Users"
+		),
+		preact.h(
+			"ul",
+			null,
+			users.map(function (user) {
+				return preact.h(
+					"li",
+					{ key: user.id },
+					preact.h(
+						Link,
+						{ to: "/users/" + user.id },
+						user.name
+					)
+				);
+			})
+		),
+		children
+	);
+};
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -772,215 +964,6 @@ var state = {
 	location: getHash(window.location.hash),
 	users: [{ id: 1, name: 'Bob' }, { id: 2, name: 'Joe' }],
 	pets: [{ id: 1, userId: 1, name: 'Tobi', species: 'Ferret' }, { id: 2, userId: 1, name: 'Loki', species: 'Ferret' }, { id: 3, userId: 1, name: 'Jane', species: 'Ferret' }, { id: 4, userId: 2, name: 'Manny', species: 'Cat' }, { id: 5, userId: 2, name: 'Luna', species: 'Cat' }]
-};
-
-// note this is just an example, this package does not provide
-// a Link equivalent found in react-router, nor does it provide
-// bindings for tools like Redux. You'll need to wire these up
-// as desired.
-function Link(_ref, _ref2) {
-	var to = _ref.to;
-	var children = _ref.children;
-	var navigate = _ref2.navigate;
-
-	function click(e) {
-		e.preventDefault();
-		navigate(to);
-	}
-
-	return preact.h(
-		'a',
-		{ href: to, onClick: click },
-		children
-	);
-}
-
-var User = function User(_ref3) {
-	var user = _ref3.user;
-	var pets = _ref3.pets;
-
-	return preact.h(
-		'div',
-		null,
-		preact.h(
-			'p',
-			null,
-			user.name,
-			' has ',
-			pets.length,
-			' pets:'
-		),
-		preact.h(
-			'ul',
-			null,
-			pets.map(function (pet) {
-				return preact.h(
-					'li',
-					{ key: pet.id },
-					preact.h(
-						Link,
-						{ to: '/pets/' + pet.id },
-						pet.name
-					)
-				);
-			})
-		)
-	);
-};
-
-User = function (fn) {
-	return function (_ref4) {
-		var users = _ref4.users;
-		var pets = _ref4.pets;
-		var id = _ref4.params.id;
-
-		return fn({
-			user: users.filter(function (u) {
-				return u.id === parseInt(id, 10);
-			})[0],
-			pets: pets.filter(function (p) {
-				return p.userId === parseInt(id, 10);
-			})
-		});
-	};
-}(User);
-
-function Pets(_ref5) {
-	var pets = _ref5.pets;
-	var children = _ref5.children;
-
-	return preact.h(
-		'div',
-		null,
-		preact.h(
-			'h2',
-			null,
-			'Pets'
-		),
-		preact.h(
-			'ul',
-			null,
-			pets.map(function (pet) {
-				return preact.h(
-					'li',
-					{ key: pet.id },
-					preact.h(
-						Link,
-						{ to: '/pets/' + pet.id },
-						pet.name
-					)
-				);
-			})
-		),
-		children
-	);
-}
-
-var Pet = function Pet(_ref6) {
-	var user = _ref6.user;
-	var pet = _ref6.pet;
-
-	return preact.h(
-		'p',
-		null,
-		pet.name,
-		' is a ',
-		pet.species,
-		' and is owned by ',
-		preact.h(
-			Link,
-			{ to: '/users/' + user.id },
-			user.name
-		),
-		'.'
-	);
-};
-
-Pet = function (fn) {
-	return function (_ref7) {
-		var users = _ref7.users;
-		var pets = _ref7.pets;
-		var id = _ref7.params.id;
-
-		var pet = pets.filter(function (p) {
-			return p.id === parseInt(id, 10);
-		})[0];
-		var user = users.filter(function (u) {
-			return u.id === pet.userId;
-		})[0];
-		return fn({ user: user, pet: pet });
-	};
-}(Pet);
-
-function NotFound() {
-	return preact.h(
-		'p',
-		null,
-		'404 Not Found'
-	);
-}
-
-var Index = function Index(_ref8) {
-	var children = _ref8.children;
-
-	return preact.h(
-		'div',
-		null,
-		preact.h(
-			'h1',
-			null,
-			'Pet List'
-		),
-		preact.h(
-			'p',
-			null,
-			'At least it is not a to-do list. Check out ',
-			preact.h(
-				Link,
-				{ to: '/users' },
-				'users'
-			),
-			' or ',
-			preact.h(
-				Link,
-				{ to: '/pets' },
-				'pets'
-			),
-			'.'
-		),
-		children
-	);
-};
-
-var Users = function Users(_ref9) {
-	var users = _ref9.users;
-	var children = _ref9.children;
-
-	return preact.h(
-		'div',
-		null,
-		preact.h(
-			'h2',
-			null,
-			'Users'
-		),
-		preact.h(
-			'ul',
-			null,
-			users.map(function (user) {
-				return preact.h(
-					'li',
-					{ key: user.id },
-					preact.h(
-						Link,
-						{ to: '/users/' + user.id },
-						user.name
-					)
-				);
-			})
-		),
-		children
-	);
 };
 
 var App = function (_Component) {
