@@ -3,7 +3,7 @@ import { h, Component } from 'preact'
 import enroute from 'enroute'
 
 function assert(e, msg) {
-  if (!e) throw new Error(`preact-enroute: ${msg}`)
+  if (e === null || e === undefined) throw new Error(`preact-enroute: ${msg}`)
 }
 
 /**
