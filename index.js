@@ -1,9 +1,10 @@
-
-import { h, Component } from 'preact'
-import enroute from 'enroute'
+import {h, Component} from 'preact';
+import enroute from 'enroute';
 
 function assert(e, msg) {
-  if (e === null || e === undefined) throw new Error(`preact-enroute: ${msg}`)
+	if (e === null || e === undefined) {
+		throw new Error(`preact-enroute: ${msg}`);
+	}
 }
 
 /**
@@ -11,59 +12,61 @@ function assert(e, msg) {
  */
 
 export class Router extends Component {
-  routes = {};
+	routes = {};
 
-  /**
-   * Initialize the router.
-   */
+	/**
+	 * Initialize the router.
+	 */
 
-  constructor(props) {
-    super(props)
-    this.addRoutes(props.children)
-    this.router = enroute(this.routes)
-  }
+	constructor(props) {
+		super(props);
+		this.addRoutes(props.children);
+		this.router = enroute(this.routes);
+	}
 
-  /**
-   * Add routes.
-   */
+	/**
+	 * Add routes.
+	 */
 
-  addRoutes(routes, parent) {
-    routes.forEach(r => this.addRoute(r, parent))
-  }
+	addRoutes(routes, parent) {
+		routes.forEach(r => this.addRoute(r, parent));
+	}
 
-  /**
-   * Add route.
-   */
+	/**
+	 * Add route.
+	 */
 
-  addRoute(el, parent) {
-    const { location, ...props } = this.props
-    const { path, component } = el.attributes
-    const children = el.children
+	addRoute(el, parent) {
+		const {location, ...props} = this.props;
+		const {path, component} = el.attributes;
+		const children = el.children;
 
-    assert(typeof path == 'string', `Route ${context(el.attributes)}is missing the "path" property`)
-    assert(component, `Route ${context(el.attributes)}is missing the "component" property`)
+		assert(typeof path === 'string', `Route ${context(el.attributes)}is missing the "path" property`);
+		assert(component, `Route ${context(el.attributes)}is missing the "component" property`);
 
-    function render(params, renderProps) {
-      const finalProps = { ...props, ...renderProps, location, params }
-      const children = h(component, finalProps)
-      return parent ? parent.render(params, { children }) : children
-    }
+		function render(params, renderProps) {
+			const finalProps = {...props, ...renderProps, location, params};
+			const children = h(component, finalProps);
+			return parent ? parent.render(params, {children}) : children;
+		}
 
-    const route = normalizeRoute(path, parent)
-    if (children) this.addRoutes(children, { route, render })
+		const route = normalizeRoute(path, parent);
+		if (children) {
+			this.addRoutes(children, {route, render});
+		}
 
-    this.routes[cleanPath(route)] = render
-  }
+		this.routes[cleanPath(route)] = render;
+	}
 
-  /**
-   * Render the matching route.
-   */
+	/**
+	 * Render the matching route.
+	 */
 
-  render() {
-    const { location } = this.props
-    assert(location, `Router "location" property is missing`)
-    return this.router(location, { children: null })
-  }
+	render() {
+		const {location} = this.props;
+		assert(location, `Router "location" property is missing`);
+		return this.router(location, {children: null});
+	}
 }
 
 /**
@@ -71,17 +74,21 @@ export class Router extends Component {
  */
 
 export function Route() {
-  assert(false, 'Route should not be rendered')
+	assert(false, 'Route should not be rendered');
 }
 
 /**
  * Context string for route errors based on the props available.
  */
 
-function context({ path, component }) {
-  if (path) return `with path "${path}" `
-  if (component) return `with component ${component.name} `
-  return ''
+function context({path, component}) {
+	if (path) {
+		return `with path "${path}" `;
+	}
+	if (component) {
+		return `with component ${component.name} `;
+	}
+	return '';
 }
 
 /**
@@ -89,9 +96,13 @@ function context({ path, component }) {
  */
 
 function normalizeRoute(path, parent) {
-  if (path[0] == '/') return path  // "/" signifies an absolute route
-  if (parent == null) return path  // no need for a join
-  return `${parent.route}/${path}` // join
+	if (path[0] === '/') {
+		return path;  // "/" signifies an absolute route
+	}
+	if (parent === null) {
+		return path;  // no need for a join
+	}
+	return `${parent.route}/${path}`; // join
 }
 
 /**
@@ -101,5 +112,5 @@ function normalizeRoute(path, parent) {
  */
 
 function cleanPath(path) {
-  return path.replace(/\/\//g, '/')
+	return path.replace(/\/\//g, '/');
 }
