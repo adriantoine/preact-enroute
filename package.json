@@ -1,6 +1,6 @@
 {
   "name": "preact-enroute",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "repository": "adriantoine/preact-enroute",
   "description": "Small preact router (preact port of tj/react-enroute)",
   "author": "Adrien Antoine <adriantoine@gmail.com>",
@@ -32,10 +32,20 @@
     "ignores": [
       "build/**"
     ],
-    "env": ["browser"],
+    "env": [
+      "browser"
+    ],
     "rules": {
-      "comma-dangle": [2, "always-multiline"],
-      "no-unused-vars": [2, {"varsIgnorePattern": "^h$"}],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "no-unused-vars": [
+        2,
+        {
+          "varsIgnorePattern": "^h$"
+        }
+      ],
       "react/react-in-jsx-scope": 0,
       "react/prop-types": 0,
       "react/jsx-filename-extension": 0
