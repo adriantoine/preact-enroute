@@ -24,11 +24,6 @@
     "enroute",
     "small"
   ],
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "xo": {
     "esnext": true,
     "extends": "xo-preact",
