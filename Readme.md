@@ -11,7 +11,7 @@ This is a port of [react-enroute](https://github.com/tj/react-enroute) for [Prea
 
  See [path-to-regexp](https://github.com/pillarjs/path-to-regexp) for path matching, this is the same library used by Express.
 
- If you want to try it, play with it on [this CodePen (using hash history)](http://codepen.io/Alshten/pen/qaENkj) or run the examples (see below).
+ If you want to try it, play with it on [this CodePen (using hash history)](http://codepen.io/Alshten/pen/qaENkj), [on WebpackBin](http://www.webpackbin.com/NkS7tXIi-) or run the examples (see below).
 
 ## Installation
 
