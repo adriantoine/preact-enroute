@@ -10,7 +10,6 @@
   "license": "MIT",
   "scripts": {
     "test": "xo && NODE_ENV=server nyc --cache --reporter=text babel-node test/index.js",
-    "build": "npm run build",
     "prepublish": "rollup -c",
     "example-hash": "rollup -c rollup.config.example.js --input examples/hash/index.js --output examples/hash/bundle.js | http-server examples/hash",
     "example-pushstate": "rollup -c rollup.config.example.js --input examples/pushState/index.js --output examples/pushState/bundle.js | http-server examples/pushState"
