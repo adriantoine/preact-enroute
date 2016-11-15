@@ -12,14 +12,13 @@ function assert(e, msg) {
  */
 
 export class Router extends Component {
-  routes = {};
-
   /**
    * Initialize the router.
    */
 
   constructor(props) {
     super(props);
+    this.routes = {};
     this.addRoutes(props.children);
     this.router = enroute(this.routes);
   }
