@@ -55,7 +55,7 @@
     "nyc": "^10.0.0",
     "preact": "^7.1.0",
     "preact-assert-equal-jsx": "^1.0.0",
-    "rollup": "^0.38.2",
+    "rollup": "^0.39.1",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^6.0.1",
     "rollup-plugin-node-resolve": "^2.0.0",
